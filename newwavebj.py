@@ -40,7 +40,7 @@ def hit(hand,total):
             return total + 11
         elif total + 11 > 21:
             print(card)
-            return total + 11
+            return total + card_value
     else:
         print(card)
         return total + card_value
@@ -66,13 +66,24 @@ def split(split,split_total,which_card):
     card = players_hand[which_card]
     split.append(card)
     hit(split,split_total)
+
     split_card1 = split[0]
-    split_value1 = int(split_card1[2:4])
     split_card2 = split[1]
+    split_value1 = int(split_card1[2:4])
     split_value2 = int(split_card2[2:4])
-    split_total = split_value1 + split_value2
+
+    if split_value1 ==1:
+        if split_value2 + 11 <= 21:
+            split_total = split_value2 + 11
+    elif split_value2 ==1:
+        if split_value1 + 11 <= 21:
+            split_total = split_value1 + 11
+    elif split_value1 and split_value2 != 1:
+        split_total = split_value1 + split_value2
     print(split[0], "split total =", split_total)
     return split_total
+
+
 
 def calc_points(name, points):
     points = points + 1
